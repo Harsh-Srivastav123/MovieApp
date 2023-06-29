@@ -10,9 +10,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.movieapp.model.Movie
 
 @Composable
-fun DetailScreen(navController: NavController, movie: String?){
+fun DetailScreen(navController: NavController, movie: Movie?){
     Surface {
         Scaffold(Modifier.fillMaxSize(),
         topBar = {
@@ -36,12 +37,17 @@ fun DetailScreen(navController: NavController, movie: String?){
 }
 
 @Composable
-fun DetailsContent(it: PaddingValues,movie: String?) {
+fun DetailsContent(it: PaddingValues,movie: Movie?) {
     Surface(Modifier.padding(paddingValues = it)) {
         Column(Modifier.padding(10.dp)) {
 
-            Text(text =movie.toString(),
-                style = MaterialTheme.typography.h5)
+           if(movie!=null){
+               Text(text = movie.title,
+                   style = MaterialTheme.typography.h5)
+
+               Text(text = movie.actors,
+                   style = MaterialTheme.typography.h5)
+           }
         }
     }
 }

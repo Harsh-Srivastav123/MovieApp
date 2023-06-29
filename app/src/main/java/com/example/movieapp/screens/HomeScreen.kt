@@ -18,6 +18,7 @@ import androidx.navigation.NavController
 import com.example.movieapp.navigation.MovieScreens
 import com.example.movieapp.model.Movie
 import com.example.movieapp.model.getMovies
+import com.example.movieapp.widgets.MovieRow
 
 
 @Composable
@@ -50,39 +51,15 @@ fun MainContent(it: PaddingValues,navController: NavController, movieList: List<
         LazyColumn{
             items(items = movieList){
                 MovieRow(it){
+
+                    navController.currentBackStackEntry?.savedStateHandle?.set(key="movie_obj", value = it)
                    // Log.d("movie click",it.toString())
-                    navController.navigate(route = MovieScreens.DetailScreen.name+"/$it")
+//                    navController.navigate(route = MovieScreens.DetailScreen.name+"/$it")
+
+                    navController.navigate(route = MovieScreens.DetailScreen.name)
                 }
             }
         }
     }
 }
 
-@Composable
-fun MovieRow(movie: Movie,onMovieClick:(String)->Unit) {
-    Card(
-        Modifier
-            .padding(4.dp)
-            .fillMaxWidth()
-            .height(130.dp)
-            .clickable {
-                onMovieClick(movie.id)
-            },
-        shape = RoundedCornerShape(corner = CornerSize(16.dp)),
-        elevation = 6.dp
-    ) {
-        Row(verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Start) {
-            Surface(
-                Modifier
-                    .padding(10.dp)
-                    .size(100.dp), elevation = 4.dp,
-                shape = RectangleShape
-            ) {
-                Icon(imageVector = Icons.Rounded.AccountBox, contentDescription =null )
-            }
-            Text(text = movie.title)
-
-        }
-    }
-}
