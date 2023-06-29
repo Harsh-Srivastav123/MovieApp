@@ -36,9 +36,9 @@ import com.example.movieapp.model.getMovies
 
 
 
-
+@Preview(showBackground = true)
 @Composable
-fun MovieRow(movie: Movie, onMovieClick:(Movie)->Unit={}) {
+fun MovieRow(movie: Movie= getMovies()[0], onMovieClick:(Movie)->Unit={}) {
     val expanded =remember{
         mutableStateOf(false)
     }
